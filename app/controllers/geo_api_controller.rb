@@ -15,6 +15,7 @@ class GeoApiController < ApplicationController
         @commune = communes.first # On prend la première commune de la réponse
       else
         @error = "Aucune commune trouvée pour ce code postal."
+        
       end
     end
   end
