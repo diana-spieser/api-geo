@@ -1,0 +1,59 @@
+<%= form_for @user, url: users_path, html: { method: :post } do |f| %>
+  <% if @error %>
+    <div class="alert alert-danger" role="alert">
+      <%= @error %>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :nom, "Nom" %>
+    <%= f.text_field :nom, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :prenom, "Prénom" %>
+    <%= f.text_field :prenom, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :nom_jeune_fille, "Nom de jeune fille" %>
+    <%= f.text_field :nom_jeune_fille, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :code_postal, "Code Postal" %>
+    <%= f.text_field :code_postal, class: "form-control", id: "code_postal" %>
+  </div>
+
+  <% if @communes.present? %>
+    <div class="form-group" id="lieu_naissance_field">
+      <%= f.label :lieu_naissance, "Lieu de naissance" %>
+      <%= f.select :lieu_naissance, options_for_select(@communes.map { |commune| [commune['nom'], commune['nom']] }), {}, class: "form-control" %>
+    </div>
+  <% else %>
+    <div class="form-group" id="lieu_naissance_field" style="display: none;">
+      <%= f.label :lieu_naissance, "Lieu de naissance" %>
+      <%= f.select :lieu_naissance, options_for_select([]), {}, class: "form-control" %>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :email, "Email" %>
+    <%= f.email_field :email, class: "form-control" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Créer", class: "btn btn-primary" %>
+  </div>
+<% end %>
+
+<script>
+  document.getElementById('code_postal').addEventListener('change', function() {
+    var selectedCodePostal = this.value;
+    if (selectedCodePostal) {
+      document.getElementById('lieu_naissance_field').style.display = 'block';
+    } else {
+      document.getElementById('lieu_naissance_field').style.display = 'none';
+    }
+  });
+</script>

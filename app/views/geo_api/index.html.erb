@@ -1,0 +1,21 @@
+
+
+
+
+
+
+
+
+
+<%= form_with url: submit_geo_api_path, method: :get, local: true do |form| %>
+  <%= form.label :code_postal, "Entrez le code postal :" %>
+  <%= form.text_field :code_postal %>
+  <%= form.submit "Rechercher" %>
+<% end %>
+
+<% if @commune %>
+  <p>Commune: <%= @commune["nom"] %></p>
+  <p>Code: <%= @commune["code"] %></p>
+<% elsif @error %>
+  <p><%= @error %></p>
+<% end %>
